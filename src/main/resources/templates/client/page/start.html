@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+<meta charset="UTF-8">
+<title>Albion Hellgate Monitor</title>
+
+<style>
+
+/* 기본 버튼 스타일 */
+.btn {
+	display: inline-block;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #113355; /* 배경색 변경 */
+	border: none;
+	border-radius: 8px; /* 더 부드러운 모양 */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+	transition: background-color 0.3s ease;
+	display: inline-block; /* 부드러운 호버 효과 */
+}
+
+/* 버튼 호버 효과 */
+.btn:hover {
+	background-color: #e3554a; /* 호버 시 색 변경 */
+}
+
+/* 버튼 액티브 효과 */
+.btn:active {
+	background-color: #cc473c; /* 클릭 시 색 변경 */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+}
+
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: black;
+	font-size: 16px; /* 전체적인 폰트 크기 조정 */
+}
+
+.container {
+	width: 80%;
+	margin: 20px auto;
+}
+
+.post {
+	color: white;
+	border: 1px solid #000;
+	padding: 20px;
+	border-radius: 5px;
+	background-color: #282828;
+}
+
+table {
+	/* 기존 스타일 속성들... */
+	color: white;
+	/* 테이블 안의 글자 색상을 하얀색으로 지정합니다. */
+	width: 100%;
+	max-width: 100%;
+	/* 필요한 다른 스타일 속성들... */
+}
+
+/* 테이블 행에 마우스 호버 효과 */
+table tbody tr:hover {
+	background-color: #444; /* 마우스 호버 시 배경색 변경 */
+}
+</style>
+<body>
+
+	<div class="container">
+		<table border="1">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Battle Id</th>
+					<th>Winner</th>
+					<th>Loser</th>
+					<th>Fame</th>
+					<th>Battle Type</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr th:each="row : ${battles}"
+					th:onclick="|window.location.href='battle/detail?id=${row.battle_id}'|">
+					<td th:text="${#dates.format(row.battle_time, 'yyyy-MM-ddHH:mm')}">
+					</td>
+					<td th:text="${row.battle_id}"></td>
+					<td><div th:each="team : ${row.victory_team}">
+							<div style="display: flex; align-items: center;">
+								<img alt="mainhand"
+									th:src="@{'https://render.albiononline.com/v1/item/' + ${team.weapon} + '?size=24'}"
+									style="margin-right: 5px;">
+								<p th:text="${team.name}"></p>
+							</div>
+						</div></td>
+					<td><div th:each="team : ${row.defeat_team}">
+							<div style="display: flex; align-items: center;">
+								<img alt="mainhand"
+									th:src="@{'https://render.albiononline.com/v1/item/' + ${team.weapon} + '?size=24'}"
+									style="margin-right: 5px;">
+								<p th:text="${team.name}"></p>
+							</div>
+						</div></td>
+					<td th:text="${row.totalFame}"></td>
+					<td
+						th:text="${row.type == 22 ? '2v2' : row.type == 55 ? '5v5' : '10v10'}"></td>
+
+				</tr>
+			</tbody>
+		</table>
+		
+		<div style="text-align: center;">
+			<button class="btn" th:if="${previousPageURL != null}"
+				th:onclick="|window.location.href = '${previousPageURL}';|">
+				&larr;</button>
+			<button class="btn" th:if="${nextPageURL != null}"
+				th:onclick="|window.location.href = '${nextPageURL}';|">
+				&rarr;</button>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

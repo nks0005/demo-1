@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.Mapper.IndexMapper">
+
+	<select id="getBattle" resultType="com.example.demo.dto.BattlesDto">
+		SELECT
+			battle_id,
+			totalFame,
+			totalKills,
+			countPlayers,
+			victory_team,
+			defeat_team,
+			type,
+			battle_time
+		FROM
+			battles
+		LIMIT 1
+	</select>
+	
+	<select id="getBattleById" resultType="com.example.demo.dto.BattlesDto" parameterType="int">
+        SELECT
+            battle_id,
+			totalFame,
+			totalKills,
+			countPlayers,
+			victory_team,
+			defeat_team,
+			type,
+			battle_time
+        FROM
+            battles
+        WHERE
+            battle_id = #{id}
+    </select>
+	
+	<select id="getBattles" resultType="com.example.demo.dto.BattlesDto">
+		SELECT
+			battle_id,
+			totalFame,
+			totalKills,
+			countPlayers,
+			victory_team,
+			defeat_team,
+			type,
+			battle_time
+		FROM
+			battles
+		ORDER BY
+			battle_time ASC
+		LIMIT 10
+	</select>
+	
+</mapper>
