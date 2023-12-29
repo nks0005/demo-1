@@ -26,16 +26,64 @@ public class IndexController {
 
 	@GetMapping("")
 	public String getHellgatePage() {
-	    return "redirect:/start?list=0";
+		return "redirect:/start?list=0";
 	}
-	
+
 	@GetMapping("start")
 	public ModelAndView getStartPage(ModelAndView mv, @RequestParam("list") int list) {
 		mv.setViewName("client/page/start");
-		
-		List<Battle> battles = indexService.getBattles();
+
+		int offset_list = 0;
+		if (list < 0)
+			offset_list = 0;
+		else if (list != 0)
+			offset_list = list * 10;
+
+		List<Battle> battles = indexService.getBattles(offset_list);
 		mv.addObject("battles", battles);
+
+		// make button : previousPageURL, nextPageURL
+		String tmpNext = "/start?list=" + (list + 1);
+		mv.addObject("nextPageURL", tmpNext);
+
+		if (list != 0) {
+			String tmpPrev = "/start?list=" + (list - 1);
+			mv.addObject("previousPageURL", tmpPrev);
+		}
+		return mv;
+	}
+
+	@GetMapping("start/type")
+	public ModelAndView getStartPage(ModelAndView mv, @RequestParam("list") int list, @RequestParam("type") int type) {
+		mv.setViewName("client/page/start");
+
+		int offset_list = 0;
+		if (list < 0)
+			offset_list = 0;
+		else if (list != 0)
+			offset_list = list * 10;
+
+		List<Battle> battles = indexService.getBattlesInType(offset_list, type);
+		mv.addObject("battles", battles);
+
+		// make button : previousPageURL, nextPageURL
+		String tmpNext = "/start/type?type=" + type + "&list=" + (list + 1);
+		mv.addObject("nextPageURL", tmpNext);
+
+		if (list != 0) {
+			String tmpPrev = "/start/type?type=" + type + "&list=" + (list - 1);
+			mv.addObject("previousPageURL", tmpPrev);
+		}
+		return mv;
+	}
+	
+	@GetMapping("/detail")
+	public ModelAndView getHellgateDetailPage(ModelAndView mv, @RequestParam("id") int id) {
+
+		Battle battle = indexService.getBattleById(id);
+		mv.addObject("battle", battle);
 		
+		mv.setViewName("client/page/hellgates");
 		return mv;
 	}
 }

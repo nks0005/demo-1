@@ -66,12 +66,67 @@ table {
 	/* 필요한 다른 스타일 속성들... */
 }
 
-/* 테이블 행에 마우스 호버 효과 */
-table tbody tr:hover {
-	background-color: #444; /* 마우스 호버 시 배경색 변경 */
+th {
+	text-align: center;
+}
+
+td {
+	text-align: center;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse; /* 셀 경계를 없애고 한 줄로 만듭니다. */
+	font-size: 16px; /* 테이블 폰트 크기 조정 */
+}
+
+th, td {
+	padding: 8px; /* 셀 안의 여백을 조정합니다. */
+	border: 1px solid #ddd; /* 셀 테두리 스타일 지정 */
+}
+
+th {
+	background-color: #282828; /* 테이블 헤더 배경색 변경 */
+	color: white; /* 테이블 헤더 글자색 변경 */
+}
+
+/* 나눔 폰트 */
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap')
+	;
+
+/* 타이틀 스타일 */
+.title {
+	text-align: center;
+	margin-top: 50px; /* 위쪽 여백 조정 */
+}
+
+.title h1 {
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size: 36px; /* 타이틀 폰트 크기 */
+	color: #fff; /* 폰트 색상 */
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* 텍스트 그림자 효과 */
 }
 </style>
 <body>
+	<div class="title">
+		<h1>Albion Hellgate Monitor</h1>
+	</div>
+
+	<div style="text-align: center;">
+		<div style="text-align: center;">
+			<button class="btn" data-url='/start/type?list=0&type=22'>
+				<span style="display: inline-block; text-align: center;">2v2</span>
+			</button>
+			<button class="btn" data-url='/start/type?list=0&type=55'>
+				<span style="display: inline-block; text-align: center;">5v5</span>
+			</button>
+			<button class="btn" data-url='/start/type?list=0&type=1010'>
+				<span style="display: inline-block; text-align: center;">10v10</span>
+			</button>
+		</div>
+	</div>
+
 
 	<div class="container">
 		<table border="1">
@@ -79,8 +134,8 @@ table tbody tr:hover {
 				<tr>
 					<th>Date</th>
 					<th>Battle Id</th>
-					<th>Winner</th>
-					<th>Loser</th>
+					<th>Winner Team</th>
+					<th>Loser Team</th>
 					<th>Fame</th>
 					<th>Battle Type</th>
 				</tr>
@@ -88,8 +143,8 @@ table tbody tr:hover {
 			<tbody>
 
 				<tr th:each="row : ${battles}"
-					th:onclick="|window.location.href='battle/detail?id=${row.battle_id}'|">
-					<td th:text="${#dates.format(row.battle_time, 'yyyy-MM-ddHH:mm')}">
+					th:onclick="|window.location.href='/detail?id=${row.battle_id}'|">
+					<td th:text="${#dates.format(row.battle_time, 'yyyy-MM-dd HH:mm')}">
 					</td>
 					<td th:text="${row.battle_id}"></td>
 					<td><div th:each="team : ${row.victory_team}">
@@ -115,17 +170,27 @@ table tbody tr:hover {
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<div style="text-align: center;">
 			<button class="btn" th:if="${previousPageURL != null}"
-				th:onclick="|window.location.href = '${previousPageURL}';|">
-				&larr;</button>
-			<button class="btn" th:if="${nextPageURL != null}"
-				th:onclick="|window.location.href = '${nextPageURL}';|">
-				&rarr;</button>
+				th:attr="data-url=${previousPageURL}">&larr;</button>
+
+			<button class="btn" th:attr="data-url=${nextPageURL}">&rarr;</button>
+
 		</div>
 
 	</div>
+
+	<script>
+		var buttons = document.querySelectorAll('.btn');
+		buttons.forEach(function(button) {
+			button.addEventListener('click', function() {
+				var url = this.getAttribute('data-url');
+				window.location.href = url;
+			});
+		});
+
+	</script>
 
 </body>
 
