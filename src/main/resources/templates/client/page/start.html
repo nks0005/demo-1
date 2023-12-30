@@ -36,6 +36,32 @@
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
 }
 
+.refresh_btn {
+	display: inline-block;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #113355; /* 배경색 변경 */
+	border: none;
+	border-radius: 8px; /* 더 부드러운 모양 */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+	transition: background-color 0.3s ease;
+	display: inline-block; /* 부드러운 호버 효과 */
+}
+
+.refresh_btn :hover {
+	background-color: #e3554a; /* 호버 시 색 변경 */
+}
+
+.refresh_btn :active {
+	background-color: #cc473c; /* 클릭 시 색 변경 */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+}
+
 body {
 	font-family: Arial, sans-serif;
 	margin: 0;
@@ -78,6 +104,11 @@ table {
 	width: 100%;
 	border-collapse: collapse; /* 셀 경계를 없애고 한 줄로 만듭니다. */
 	font-size: 16px; /* 테이블 폰트 크기 조정 */
+	color: white;
+	/* 테이블 안의 글자 색상을 하얀색으로 지정합니다. */
+	/* 필요한 다른 스타일 속성들... */
+	transition: background-color 0.3s ease;
+	/* 변화를 부드럽게 만들기 위한 transition 속성 추가 */
 }
 
 th, td {
@@ -88,6 +119,11 @@ th, td {
 th {
 	background-color: #282828; /* 테이블 헤더 배경색 변경 */
 	color: white; /* 테이블 헤더 글자색 변경 */
+}
+
+/* 마우스 호버 시 테이블 배경색 변경 */
+tr:hover {
+	background-color: #222; /* 호버 시 배경색 변경 */
 }
 
 /* 나눔 폰트 */
@@ -106,6 +142,18 @@ th {
 	font-size: 36px; /* 타이틀 폰트 크기 */
 	color: #fff; /* 폰트 색상 */
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* 텍스트 그림자 효과 */
+}
+
+th:nth-child(3), th:nth-child(4) {
+	/* 원하는 최소 및 최대 너비 값 설정 */
+	
+}
+
+/* Battle Type 셀에 대한 너비 조정 */
+th:nth-child(1), th:nth-child(2), th:nth-child(5), th:nth-child(6) {
+	/* 원하는 최소 및 최대 너비 값 설정 */
+	min-width: 30px;
+	max-width: 30px; /* 최대 너비 */
 }
 </style>
 <body>
@@ -128,16 +176,27 @@ th {
 	</div>
 
 
+
+
+
 	<div class="container">
 		<table border="1">
 			<thead>
 				<tr>
-					<th>Date</th>
+					<th>Date ( UTC )</th>
 					<th>Battle Id</th>
 					<th>Winner Team</th>
 					<th>Loser Team</th>
 					<th>Fame</th>
-					<th>Battle Type</th>
+					<th>
+						<div style="display: flex; align-items: center;">
+							<span style="margin-right: 5px;">Battle Type</span>
+							<button class="refresh_btn" onclick="refreshPage()">↻</button>
+						</div>
+					</th>
+
+
+
 				</tr>
 			</thead>
 			<tbody>
@@ -190,6 +249,9 @@ th {
 			});
 		});
 
+		function refreshPage() {
+			location.reload();
+		}
 	</script>
 
 </body>
