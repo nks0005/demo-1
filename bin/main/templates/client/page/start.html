@@ -155,11 +155,19 @@ th:nth-child(1), th:nth-child(2), th:nth-child(5), th:nth-child(6) {
 	min-width: 30px;
 	max-width: 30px; /* 최대 너비 */
 }
+
+#utc-time {
+	color: white;
+	text-align: center;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
 </style>
 <body>
 	<div class="title">
 		<h1>East Albion Hellgate Monitor</h1>
 	</div>
+	<div id="utc-time"></div>
 
 	<div style="text-align: center;">
 		<div style="text-align: center;">
@@ -252,6 +260,19 @@ th:nth-child(1), th:nth-child(2), th:nth-child(5), th:nth-child(6) {
 		function refreshPage() {
 			location.reload();
 		}
+		// 현재 UTC 시간을 표시하는 함수
+		function displayUTCTime() {
+			const utcElement = document.getElementById('utc-time');
+			const now = new Date().toISOString().replace('T', ' ').substring(0,
+					16);
+			utcElement.innerHTML = now;
+		}
+
+		// 페이지 로드 시 현재 UTC 시간 표시
+		displayUTCTime();
+
+		// 60초마다 현재 UTC 시간을 업데이트
+		setInterval(displayUTCTime, 60 * 1000);
 	</script>
 
 

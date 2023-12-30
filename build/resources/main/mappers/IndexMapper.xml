@@ -33,7 +33,7 @@
 			FROM
 			battles
 		ORDER BY
-			battle_time ASC
+			battle_time DESC
 		LIMIT 10 
 		OFFSET #{offset}
 	</select>
@@ -54,7 +54,7 @@
 		WHERE 
 			type = #{type}
 		ORDER BY
-			battle_time ASC
+			battle_time DESC
 		LIMIT 10 
 		OFFSET #{offset}
 	</select>
