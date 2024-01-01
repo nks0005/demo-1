@@ -43,7 +43,17 @@ public class IndexController {
 
         List<TestViewDto> test_views = indexService.getTestViews(offset_list);
 
+
         mv.addObject("comps", test_views);
+
+        // make button : previousPageURL, nextPageURL
+        String tmpNext = "/statistics?type=" + type + "&list=" + (list + 1);
+        mv.addObject("nextPageURL", tmpNext);
+
+        if (list != 0) {
+            String tmpPrev = "/statistics?type=" + type + "&list=" + (list - 1);
+            mv.addObject("previousPageURL", tmpPrev);
+        }
 
         mv.setViewName("client/page/statistics");
         return mv;

@@ -24,6 +24,37 @@ tbody tr:nth-child(even) {
     background-color: #2b2a2a; /* 연한 회색 배경색 */
 }
 
+
+ /* 기본 버튼 스타일 */
+        .btn3 {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #113355; /* 배경색 변경 */
+            border: none;
+            border-radius: 8px; /* 더 부드러운 모양 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+            transition: background-color 0.3s ease;
+            display: inline-block; /* 부드러운 호버 효과 */
+        }
+
+        /* 버튼 호버 효과 */
+        .btn3:hover {
+            background-color: #e3554a; /* 호버 시 색 변경 */
+        }
+
+        /* 버튼 액티브 효과 */
+        .btn3:active {
+            background-color: #cc473c; /* 클릭 시 색 변경 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+        }
+
+
         /* 기본 버튼 스타일 */
         .btn {
             display: inline-block;
@@ -145,10 +176,28 @@ tbody tr:nth-child(even) {
     </table>
 </div>
 
+<div style="text-align: center;">
+    <button class="btn3" th:if="${previousPageURL != null}"
+            th:attr="data-url=${previousPageURL}">&larr;
+    </button>
+
+    <button class="btn3" th:attr="data-url=${nextPageURL}">&rarr;</button>
+
+</div>
+
+
 <!-- 뒤로 가기 버튼 -->
 <button class="btn" onclick="goBack()">Go Back</button>
 
 <script>
+    var buttons = document.querySelectorAll('.btn3');
+    buttons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var url = this.getAttribute('data-url');
+            window.location.href = url;
+        });
+    });
+
     function goBack() {
         window.history.back();
     }
