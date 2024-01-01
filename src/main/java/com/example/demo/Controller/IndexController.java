@@ -29,6 +29,15 @@ public class IndexController {
 		return "redirect:/start?list=0";
 	}
 
+
+	@GetMapping("statistics")
+	public ModelAndView getStatisticsPage(ModelAndView mv, @RequestParam("type") int type){
+
+
+		mv.setViewName("client/page/statistics");
+		return mv;
+	}
+
 	@GetMapping("start")
 	public ModelAndView getStartPage(ModelAndView mv, @RequestParam("list") int list) {
 		mv.setViewName("client/page/start");
