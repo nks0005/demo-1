@@ -2,294 +2,302 @@
 <html lang="UTF-8">
 
 <head>
-<meta charset="UTF-8">
-<title>East Albion Hellgate Monitor</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="East Albion Hellgate Monitor">
+    <meta name="keywords" content="Albion, East, Hellgate">
+    <title>East Albion Hellgate Monitor</title>
 
-<style>
+    <style>
 
-/* 기본 버튼 스타일 */
-.btn {
-	display: inline-block;
-	padding: 10px 20px;
-	font-size: 16px;
-	cursor: pointer;
-	text-align: center;
-	text-decoration: none;
-	outline: none;
-	color: #fff;
-	background-color: #113355; /* 배경색 변경 */
-	border: none;
-	border-radius: 8px; /* 더 부드러운 모양 */
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-	transition: background-color 0.3s ease;
-	display: inline-block; /* 부드러운 호버 효과 */
-}
+        /* 기본 버튼 스타일 */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #113355; /* 배경색 변경 */
+            border: none;
+            border-radius: 8px; /* 더 부드러운 모양 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+            transition: background-color 0.3s ease;
+            display: inline-block; /* 부드러운 호버 효과 */
+        }
 
-/* 버튼 호버 효과 */
-.btn:hover {
-	background-color: #e3554a; /* 호버 시 색 변경 */
-}
+        /* 버튼 호버 효과 */
+        .btn:hover {
+            background-color: #e3554a; /* 호버 시 색 변경 */
+        }
 
-/* 버튼 액티브 효과 */
-.btn:active {
-	background-color: #cc473c; /* 클릭 시 색 변경 */
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
-}
+        /* 버튼 액티브 효과 */
+        .btn:active {
+            background-color: #cc473c; /* 클릭 시 색 변경 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+        }
 
-.refresh_btn {
-	display: inline-block;
-	padding: 10px 20px;
-	font-size: 16px;
-	cursor: pointer;
-	text-align: center;
-	text-decoration: none;
-	outline: none;
-	color: #fff;
-	background-color: #113355; /* 배경색 변경 */
-	border: none;
-	border-radius: 8px; /* 더 부드러운 모양 */
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-	transition: background-color 0.3s ease;
-	display: inline-block; /* 부드러운 호버 효과 */
-}
+        .refresh_btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #113355; /* 배경색 변경 */
+            border: none;
+            border-radius: 8px; /* 더 부드러운 모양 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+            transition: background-color 0.3s ease;
+            display: inline-block; /* 부드러운 호버 효과 */
+        }
 
-.refresh_btn :hover {
-	background-color: #e3554a; /* 호버 시 색 변경 */
-}
+        .refresh_btn :hover {
+            background-color: #e3554a; /* 호버 시 색 변경 */
+        }
 
-.refresh_btn :active {
-	background-color: #cc473c; /* 클릭 시 색 변경 */
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
-}
+        .refresh_btn :active {
+            background-color: #cc473c; /* 클릭 시 색 변경 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+        }
 
-body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: black;
-	font-size: 16px; /* 전체적인 폰트 크기 조정 */
-}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            font-size: 16px; /* 전체적인 폰트 크기 조정 */
+        }
 
-.container {
-	width: 80%;
-	margin: 20px auto;
-}
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
 
-.post {
-	color: white;
-	border: 1px solid #000;
-	padding: 20px;
-	border-radius: 5px;
-	background-color: #282828;
-}
+        .post {
+            color: white;
+            border: 1px solid #000;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #282828;
+        }
 
-table {
-	/* 기존 스타일 속성들... */
-	color: white;
-	/* 테이블 안의 글자 색상을 하얀색으로 지정합니다. */
-	width: 100%;
-	max-width: 100%;
-	/* 필요한 다른 스타일 속성들... */
-}
+        table {
+            /* 기존 스타일 속성들... */
+            color: white;
+            /* 테이블 안의 글자 색상을 하얀색으로 지정합니다. */
+            width: 100%;
+            max-width: 100%;
+            /* 필요한 다른 스타일 속성들... */
+        }
 
-th {
-	text-align: center;
-}
+        th {
+            text-align: center;
+        }
 
-td {
-	text-align: center;
-}
+        td {
+            text-align: center;
+        }
 
-table {
-	width: 100%;
-	border-collapse: collapse; /* 셀 경계를 없애고 한 줄로 만듭니다. */
-	font-size: 16px; /* 테이블 폰트 크기 조정 */
-	color: white;
-	/* 테이블 안의 글자 색상을 하얀색으로 지정합니다. */
-	/* 필요한 다른 스타일 속성들... */
-	transition: background-color 0.3s ease;
-	/* 변화를 부드럽게 만들기 위한 transition 속성 추가 */
-}
+        table {
+            width: 100%;
+            border-collapse: collapse; /* 셀 경계를 없애고 한 줄로 만듭니다. */
+            font-size: 16px; /* 테이블 폰트 크기 조정 */
+            color: white;
+            /* 테이블 안의 글자 색상을 하얀색으로 지정합니다. */
+            /* 필요한 다른 스타일 속성들... */
+            transition: background-color 0.3s ease;
+            /* 변화를 부드럽게 만들기 위한 transition 속성 추가 */
+        }
 
-th, td {
-	padding: 8px; /* 셀 안의 여백을 조정합니다. */
-	border: 1px solid #ddd; /* 셀 테두리 스타일 지정 */
-}
+        th, td {
+            padding: 8px; /* 셀 안의 여백을 조정합니다. */
+            border: 1px solid #ddd; /* 셀 테두리 스타일 지정 */
+        }
 
-th {
-	background-color: #282828; /* 테이블 헤더 배경색 변경 */
-	color: white; /* 테이블 헤더 글자색 변경 */
-}
+        th {
+            background-color: #282828; /* 테이블 헤더 배경색 변경 */
+            color: white; /* 테이블 헤더 글자색 변경 */
+        }
 
-/* 마우스 호버 시 테이블 배경색 변경 */
-tr:hover {
-	background-color: #222; /* 호버 시 배경색 변경 */
-}
+        /* 마우스 호버 시 테이블 배경색 변경 */
+        tr:hover {
+            background-color: #222; /* 호버 시 배경색 변경 */
+        }
 
-/* 나눔 폰트 */
-@import
-	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap')
-	;
+        /* 나눔 폰트 */
+        @import
+            url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap')
+            ;
 
-/* 타이틀 스타일 */
-.title {
-	text-align: center;
-	margin-top: 50px; /* 위쪽 여백 조정 */
-}
+        /* 타이틀 스타일 */
+        .title {
+            text-align: center;
+            margin-top: 50px; /* 위쪽 여백 조정 */
+        }
 
-.title h1 {
-	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 36px; /* 타이틀 폰트 크기 */
-	color: #fff; /* 폰트 색상 */
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* 텍스트 그림자 효과 */
-}
+        .title h1 {
+            font-family: 'Nanum Gothic', sans-serif;
+            font-size: 36px; /* 타이틀 폰트 크기 */
+            color: #fff; /* 폰트 색상 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* 텍스트 그림자 효과 */
+        }
 
-th:nth-child(3), th:nth-child(4) {
-	/* 원하는 최소 및 최대 너비 값 설정 */
-	
-}
+        th:nth-child(3), th:nth-child(4) {
+            /* 원하는 최소 및 최대 너비 값 설정 */
 
-/* Battle Type 셀에 대한 너비 조정 */
-th:nth-child(1), th:nth-child(2), th:nth-child(5), th:nth-child(6) {
-	/* 원하는 최소 및 최대 너비 값 설정 */
-	min-width: 30px;
-	max-width: 30px; /* 최대 너비 */
-}
+        }
 
-#utc-time {
-	color: white;
-	text-align: center;
-	font-size: 20px;
-	margin-bottom: 20px;
-}
-</style>
+        /* Battle Type 셀에 대한 너비 조정 */
+        th:nth-child(1), th:nth-child(2), th:nth-child(5), th:nth-child(6) {
+            /* 원하는 최소 및 최대 너비 값 설정 */
+            min-width: 30px;
+            max-width: 30px; /* 최대 너비 */
+        }
+
+        #utc-time {
+            color: white;
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
 <body>
-	<div class="title">
-		<h1>East Albion Hellgate Monitor</h1>
-	</div>
-	<div id="utc-time"></div>
-
-	<div style="text-align: center;">
-		<div style="text-align: center;">
-			<button class="btn" data-url='/start/type?list=0&type=22'>
-				<span style="display: inline-block; text-align: center;">2v2</span>
-			</button>
-			<button class="btn" data-url='/start/type?list=0&type=55'>
-				<span style="display: inline-block; text-align: center;">5v5</span>
-			</button>
-			<button class="btn" data-url='/start/type?list=0&type=1010'>
-				<span style="display: inline-block; text-align: center;">10v10</span>
-			</button>
-		</div>
-	</div>
+<div class="title">
+    <h1>East Albion Hellgate Monitor</h1>
+</div>
+<div id="utc-time"></div>
 
 
+<div style="text-align: center;">
+    <button class="btn" data-url='/statistics?type=22&list=0'>2v2 meta comps</button>
+    <br>
+</div>
+<div style="text-align: center;">
+    <div style="text-align: center;">
+        <button class="btn" data-url='/start/type?list=0&type=22'>
+            <span style="display: inline-block; text-align: center;">2v2</span>
+        </button>
+        <button class="btn" data-url='/start/type?list=0&type=55'>
+            <span style="display: inline-block; text-align: center;">5v5</span>
+        </button>
+        <button class="btn" data-url='/start/type?list=0&type=1010'>
+            <span style="display: inline-block; text-align: center;">10v10</span>
+        </button>
+    </div>
+</div>
 
 
-
-	<div class="container">
-		<table border="1">
-			<thead>
-				<tr>
-					<th>Date ( UTC )</th>
-					<th>Battle Id</th>
-					<th>Winner Team</th>
-					<th>Loser Team</th>
-					<th>Fame</th>
-					<th>
-						<div style="display: flex; align-items: center;">
-							<span style="margin-right: 5px;">Battle Type</span>
-							<button class="refresh_btn" onclick="refreshPage()">↻</button>
-						</div>
-					</th>
-
+<div class="container">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Date ( UTC )</th>
+            <th>Battle Id</th>
+            <th>Winner Team</th>
+            <th>Loser Team</th>
+            <th>Fame</th>
+            <th>
+                <div style="display: flex; align-items: center;">
+                    <span style="margin-right: 5px;">Battle Type</span>
+                    <button class="refresh_btn" onclick="refreshPage()">↻</button>
+                </div>
+            </th>
 
 
-				</tr>
-			</thead>
-			<tbody>
+        </tr>
+        </thead>
+        <tbody>
 
-				<tr th:each="row : ${battles}"
-					th:onclick="|window.location.href='/detail?id=${row.battle_id}'|">
-					<td th:text="${#dates.format(row.battle_time, 'yyyy-MM-dd HH:mm')}">
-					</td>
-					<td th:text="${row.battle_id}"></td>
-					<td><div th:each="team : ${row.victory_team}">
-							<div style="display: flex; align-items: center;">
-								<img alt="mainhand"
-									th:src="@{'https://render.albiononline.com/v1/item/' + ${team.weapon} + '?size=24'}"
-									style="margin-right: 5px;">
-								<p th:text="${team.name}"></p>
-							</div>
-						</div></td>
-					<td><div th:each="team : ${row.defeat_team}">
-							<div style="display: flex; align-items: center;">
-								<img alt="mainhand"
-									th:src="@{'https://render.albiononline.com/v1/item/' + ${team.weapon} + '?size=24'}"
-									style="margin-right: 5px;">
-								<p th:text="${team.name}"></p>
-							</div>
-						</div></td>
-					<td th:text="${row.totalFame}"></td>
-					<td
-						th:text="${row.type == 22 ? '2v2' : row.type == 55 ? '5v5' : '10v10'}"></td>
+        <tr th:each="row : ${battles}"
+            th:onclick="|window.location.href='/detail?id=${row.battle_id}'|">
+            <td th:text="${#dates.format(row.battle_time, 'yyyy-MM-dd HH:mm')}">
+            </td>
+            <td th:text="${row.battle_id}"></td>
+            <td>
+                <div th:each="team : ${row.victory_team}">
+                    <div style="display: flex; align-items: center;">
+                        <img alt="mainhand"
+                             th:src="@{'https://render.albiononline.com/v1/item/' + ${team.weapon} + '?size=24'}"
+                             style="margin-right: 5px;">
+                        <p th:text="${team.name}"></p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div th:each="team : ${row.defeat_team}">
+                    <div style="display: flex; align-items: center;">
+                        <img alt="mainhand"
+                             th:src="@{'https://render.albiononline.com/v1/item/' + ${team.weapon} + '?size=24'}"
+                             style="margin-right: 5px;">
+                        <p th:text="${team.name}"></p>
+                    </div>
+                </div>
+            </td>
+            <td th:text="${row.totalFame}"></td>
+            <td
+                    th:text="${row.type == 22 ? '2v2' : row.type == 55 ? '5v5' : '10v10'}"></td>
 
-				</tr>
-			</tbody>
-		</table>
+        </tr>
+        </tbody>
+    </table>
 
-		<div style="text-align: center;">
-			<button class="btn" th:if="${previousPageURL != null}"
-				th:attr="data-url=${previousPageURL}">&larr;</button>
+    <div style="text-align: center;">
+        <button class="btn" th:if="${previousPageURL != null}"
+                th:attr="data-url=${previousPageURL}">&larr;
+        </button>
 
-			<button class="btn" th:attr="data-url=${nextPageURL}">&rarr;</button>
+        <button class="btn" th:attr="data-url=${nextPageURL}">&rarr;</button>
 
-		</div>
+    </div>
 
-	</div>
+</div>
 
-	<script>
-		var buttons = document.querySelectorAll('.btn');
-		buttons.forEach(function(button) {
-			button.addEventListener('click', function() {
-				var url = this.getAttribute('data-url');
-				window.location.href = url;
-			});
-		});
+<script>
+    var buttons = document.querySelectorAll('.btn');
+    buttons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var url = this.getAttribute('data-url');
+            window.location.href = url;
+        });
+    });
 
-		function refreshPage() {
-			location.reload();
-		}
-		// 현재 UTC 시간을 표시하는 함수
-		function displayUTCTime() {
-			const utcElement = document.getElementById('utc-time');
-			const now = new Date().toISOString().replace('T', ' ').substring(0,
-					16);
-			utcElement.innerHTML = now;
-		}
+    function refreshPage() {
+        location.reload();
+    }
+    // 현재 UTC 시간을 표시하는 함수
+    function displayUTCTime() {
+        const utcElement = document.getElementById('utc-time');
+        const now = new Date().toISOString().replace('T', ' ').substring(0,
+                16);
+        utcElement.innerHTML = now;
+    }
 
-		// 페이지 로드 시 현재 UTC 시간 표시
-		displayUTCTime();
+    // 페이지 로드 시 현재 UTC 시간 표시
+    displayUTCTime();
 
-		// 60초마다 현재 UTC 시간을 업데이트
-		setInterval(displayUTCTime, 60 * 1000);
-	</script>
+    // 60초마다 현재 UTC 시간을 업데이트
+    setInterval(displayUTCTime, 60 * 1000);
+</script>
 
 
-	<div style="text-align: center; margin-top: 20px;">
-		<hr style="border: 1px solid #ddd; width: 80%;">
-		<p style="color: #fff; margin-top: 10px;">
-			This website is under testing. Contact <span style="font-size: 18px;">whc#2228</span>.
-		</p>
-	</div>
+<div style="text-align: center; margin-top: 20px;">
+    <hr style="border: 1px solid #ddd; width: 80%;">
+    <p style="color: #fff; margin-top: 10px;">
+        This website is under testing. Contact <span style="font-size: 18px;">whc#2228</span>.
+    </p>
+</div>
 
-	<div style="text-align: center; margin-top: 30px;">
-		<img
-			src="https://cdn.iconscout.com/icon/free/png-256/discord-3-569463.png"
-			alt="Discord"
-			style="width: 30px; height: auto; vertical-align: middle;"> <span
-			style="font-size: 18px; color: #fff; vertical-align: middle;">whc#2228</span>
-	</div>
+<div style="text-align: center; margin-top: 30px;">
+    <img
+            src="https://cdn.iconscout.com/icon/free/png-256/discord-3-569463.png"
+            alt="Discord"
+            style="width: 30px; height: auto; vertical-align: middle;"> <span
+        style="font-size: 18px; color: #fff; vertical-align: middle;">whc#2228</span>
+</div>
 
 
 </body>

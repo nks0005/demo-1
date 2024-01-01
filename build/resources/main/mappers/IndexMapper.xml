@@ -59,4 +59,20 @@
 		OFFSET #{offset}
 	</select>
 
+	<select id="getTestViews"
+			resultType="com.example.demo.dto.TestViewDto" parameterType="int">
+		SELECT
+			A_name,
+			B_name,
+			win_count,
+			lose_count,
+			total_count
+		FROM
+			test_view
+		ORDER BY
+			total_count DESC
+		LIMIT 10
+		OFFSET #{offset}
+	</select>
+
 </mapper>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="East Albion Hellgate Monitor">
+    <meta name="keywords" content="Albion, East, Hellgate">
+    <title>East Albion Hellgate Monitor</title>
+    <style>
+        table {
+    width: 100%;
+    border-collapse: collapse; /* 테두리 합치기 */
+}
+
+th, td {
+    padding: 10px; /* 셀 내 여백 */
+    text-align: center;
+}
+
+thead {
+    background-color: #333; /* 헤더 배경색 */
+    color: white; /* 헤더 텍스트 색상 */
+}
+tbody tr:nth-child(even) {
+    background-color: #2b2a2a; /* 연한 회색 배경색 */
+}
+
+        /* 기본 버튼 스타일 */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #ff6f61; /* 배경색 변경 */
+            border: none;
+            border-radius: 8px; /* 더 부드러운 모양 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+            transition: background-color 0.3s ease; /* 부드러운 호버 효과 */
+        }
+
+        /* 버튼 호버 효과 */
+        .btn:hover {
+            background-color: #e3554a; /* 호버 시 색 변경 */
+        }
+
+        /* 버튼 액티브 효과 */
+        .btn:active {
+            background-color: #cc473c; /* 클릭 시 색 변경 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            text-align: center; /* 전체 텍스트 가운데 정렬 */
+        }
+
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-gap: 20px;
+        }
+
+        /* 테이블 색상 변경 */
+        .container table:nth-child(odd) {
+            border: 2px solid #008000; /* 초록색 테두리 */
+        }
+
+        .container table:nth-child(even) {
+            border: 2px solid #FF0000; /* 빨간색 테두리 */
+        }
+
+        h2 {
+            text-align: center; /* h2 텍스트 가운데 정렬 */
+        }
+
+        .post {
+            color: white;
+            border: 1px solid #000;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #282828;
+            border: 1px solid #000;
+        }
+
+        /* 추가적인 스타일링을 원하는 경우 여기에 추가하세요. */
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <table border="1">
+
+        <thead>
+        <tr>
+            <th>
+                Weapon 1
+            </th>
+            <th>
+                Weapon 2
+            </th>
+            <th onclick="sortTable(2)">
+                win count <span>&darr;</span>
+            </th>
+            <th onclick="sortTable(3)">
+                lose count <span>&darr;</span>
+            </th>
+            <th onclick="sortTable(4)">
+                winning rate (%) <span>&darr;</span>
+            </th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="comp : ${comps}">
+            <td style="align-items: center;"><img
+                    alt="A mainhand"
+                    th:src="@{'https://render.albiononline.com/v1/item/T8_' + ${comp.A_name} + '?size=64'}"
+                    style=""> <span th:text="${comp.A_name}"></span>
+            </td>
+            <td style="align-items: center;"><img
+                    alt="B mainhand"
+                    th:src="@{'https://render.albiononline.com/v1/item/T8_' + ${comp.B_name} + '?size=64'}"
+                    style=""> <span th:text="${comp.B_name}"></span>
+            </td>
+            <td th:text="${comp.win_count}">
+            </td>
+            <td th:text="${comp.lose_count}">
+            </td>
+            <td th:text="${comp.win_count} / ${comp.total_count} * 100 + '%'">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- 뒤로 가기 버튼 -->
+<button class="btn" onclick="goBack()">Go Back</button>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.querySelector("table");
+    switching = true;
+    dir = "asc"; // 초기 정렬 방향: 오름차순
+
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+
+        for (i = 1; i < rows.length - 1; i++) {
+            shouldSwitch = false;
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+
+            var cmpX = isNaN(parseInt(x.innerHTML)) ? x.innerHTML.toLowerCase() : parseInt(x.innerHTML);
+            var cmpY = isNaN(parseInt(y.innerHTML)) ? y.innerHTML.toLowerCase() : parseInt(y.innerHTML);
+
+            if (dir === "asc") {
+                if (cmpX > cmpY) {
+                    shouldSwitch = true;
+                    break;
+                }
+            } else if (dir === "desc") {
+                if (cmpX < cmpY) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+        }
+
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount++;
+        } else {
+            if (switchcount === 0 && dir === "asc") {
+                dir = "desc";
+                switching = true;
+            }
+        }
+    }
+
+    // 화살표 방향 변경
+    var arrows = document.querySelectorAll("th span");
+    for (i = 0; i < arrows.length; i++) {
+        arrows[i].innerHTML = '&darr;';
+    }
+    if (dir === 'asc') {
+        table.rows[0].getElementsByTagName("TH")[n].getElementsByTagName("SPAN")[0].innerHTML = '&uarr;';
+    }
+}
+
+</script>
+
+
+</body>
+</html>

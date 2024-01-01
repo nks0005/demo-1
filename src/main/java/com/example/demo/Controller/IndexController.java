@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.dto.TestViewDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,78 +22,88 @@ import jakarta.servlet.http.HttpServletResponse;
 @RequestMapping("/")
 public class IndexController {
 
-	@Autowired
-	IndexService indexService;
+    @Autowired
+    IndexService indexService;
 
-	@GetMapping("")
-	public String getHellgatePage() {
-		return "redirect:/start?list=0";
-	}
-
-
-	@GetMapping("statistics")
-	public ModelAndView getStatisticsPage(ModelAndView mv, @RequestParam("type") int type){
+    @GetMapping("")
+    public String getHellgatePage() {
+        return "redirect:/start?list=0";
+    }
 
 
-		mv.setViewName("client/page/statistics");
-		return mv;
-	}
+    @GetMapping("statistics")
+    public ModelAndView getStatisticsPage(ModelAndView mv, @RequestParam("type") int type,
+                                          @RequestParam("list") int list) {
 
-	@GetMapping("start")
-	public ModelAndView getStartPage(ModelAndView mv, @RequestParam("list") int list) {
-		mv.setViewName("client/page/start");
+        int offset_list = 0;
+        if (list < 0)
+            offset_list = 0;
+        else if (list != 0)
+            offset_list = list * 10;
 
-		int offset_list = 0;
-		if (list < 0)
-			offset_list = 0;
-		else if (list != 0)
-			offset_list = list * 10;
+        List<TestViewDto> test_views = indexService.getTestViews(offset_list);
 
-		List<Battle> battles = indexService.getBattles(offset_list);
-		mv.addObject("battles", battles);
+        mv.addObject("comps", test_views);
 
-		// make button : previousPageURL, nextPageURL
-		String tmpNext = "/start?list=" + (list + 1);
-		mv.addObject("nextPageURL", tmpNext);
+        mv.setViewName("client/page/statistics");
+        return mv;
+    }
 
-		if (list != 0) {
-			String tmpPrev = "/start?list=" + (list - 1);
-			mv.addObject("previousPageURL", tmpPrev);
-		}
-		return mv;
-	}
+    @GetMapping("start")
+    public ModelAndView getStartPage(ModelAndView mv, @RequestParam("list") int list) {
+        mv.setViewName("client/page/start");
 
-	@GetMapping("start/type")
-	public ModelAndView getStartPage(ModelAndView mv, @RequestParam("list") int list, @RequestParam("type") int type) {
-		mv.setViewName("client/page/start");
+        int offset_list = 0;
+        if (list < 0)
+            offset_list = 0;
+        else if (list != 0)
+            offset_list = list * 10;
 
-		int offset_list = 0;
-		if (list < 0)
-			offset_list = 0;
-		else if (list != 0)
-			offset_list = list * 10;
+        List<Battle> battles = indexService.getBattles(offset_list);
+        mv.addObject("battles", battles);
 
-		List<Battle> battles = indexService.getBattlesInType(offset_list, type);
-		mv.addObject("battles", battles);
+        // make button : previousPageURL, nextPageURL
+        String tmpNext = "/start?list=" + (list + 1);
+        mv.addObject("nextPageURL", tmpNext);
 
-		// make button : previousPageURL, nextPageURL
-		String tmpNext = "/start/type?type=" + type + "&list=" + (list + 1);
-		mv.addObject("nextPageURL", tmpNext);
+        if (list != 0) {
+            String tmpPrev = "/start?list=" + (list - 1);
+            mv.addObject("previousPageURL", tmpPrev);
+        }
+        return mv;
+    }
 
-		if (list != 0) {
-			String tmpPrev = "/start/type?type=" + type + "&list=" + (list - 1);
-			mv.addObject("previousPageURL", tmpPrev);
-		}
-		return mv;
-	}
-	
-	@GetMapping("/detail")
-	public ModelAndView getHellgateDetailPage(ModelAndView mv, @RequestParam("id") int id) {
+    @GetMapping("start/type")
+    public ModelAndView getStartPage(ModelAndView mv, @RequestParam("list") int list, @RequestParam("type") int type) {
+        mv.setViewName("client/page/start");
 
-		Battle battle = indexService.getBattleById(id);
-		mv.addObject("battle", battle);
-		
-		mv.setViewName("client/page/hellgates");
-		return mv;
-	}
+        int offset_list = 0;
+        if (list < 0)
+            offset_list = 0;
+        else if (list != 0)
+            offset_list = list * 10;
+
+        List<Battle> battles = indexService.getBattlesInType(offset_list, type);
+        mv.addObject("battles", battles);
+
+        // make button : previousPageURL, nextPageURL
+        String tmpNext = "/start/type?type=" + type + "&list=" + (list + 1);
+        mv.addObject("nextPageURL", tmpNext);
+
+        if (list != 0) {
+            String tmpPrev = "/start/type?type=" + type + "&list=" + (list - 1);
+            mv.addObject("previousPageURL", tmpPrev);
+        }
+        return mv;
+    }
+
+    @GetMapping("/detail")
+    public ModelAndView getHellgateDetailPage(ModelAndView mv, @RequestParam("id") int id) {
+
+        Battle battle = indexService.getBattleById(id);
+        mv.addObject("battle", battle);
+
+        mv.setViewName("client/page/hellgates");
+        return mv;
+    }
 }
