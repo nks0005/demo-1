@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 	<meta name="description" content="East Albion Hellgate Monitor. This website provides data related to Hellgates in the Albion Online game.">
 	<meta name="keywords" content="Albion, East, Hellgate">
-	
+
 
 	<title>East Albion Hellgate Monitor</title>
 <style>
@@ -92,6 +92,9 @@ h2 {
 	</h3>
 	<h3>
 		Total Kills : <span th:text="${battle.totalKills}"></span>
+	</h3>
+	<h3>
+		UTC Time : <span th:text="${#dates.format(battle.battle_time, 'yyyy-MM-dd HH:mm')}"></span>
 	</h3>
 	<h3>
 		Game Type : <span

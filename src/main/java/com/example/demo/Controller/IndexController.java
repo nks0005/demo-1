@@ -36,10 +36,12 @@ public class IndexController {
                                           @RequestParam("list") int list) {
 
         int offset_list = 0;
+        if(list > 100) list = 100;
         if (list < 0)
             offset_list = 0;
         else if (list != 0)
             offset_list = list * 10;
+
 
         List<TestViewDto> test_views = indexService.getTestViews(offset_list);
 
@@ -64,6 +66,7 @@ public class IndexController {
         mv.setViewName("client/page/start");
 
         int offset_list = 0;
+        if(list > 100) list = 100;
         if (list < 0)
             offset_list = 0;
         else if (list != 0)
@@ -88,6 +91,7 @@ public class IndexController {
         mv.setViewName("client/page/start");
 
         int offset_list = 0;
+        if(list > 100) list = 100;
         if (list < 0)
             offset_list = 0;
         else if (list != 0)
